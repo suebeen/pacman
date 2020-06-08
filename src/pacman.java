@@ -14,6 +14,8 @@ public class pacman {
 	static final ImageIcon enemy = new ImageIcon("icons/enemy.png");
 	static final ImageIcon pacman = new ImageIcon("icons/pacman.png");
 	static final ImageIcon empty = new ImageIcon("icons/empty.png");
+	static int score = 0;
+	
 	static final JLabel[][] f = new JLabel[14][14];
 	
 	private static Random random;
@@ -32,7 +34,7 @@ public class pacman {
 				f[i][j].setIcon(wall);
 			}
 		}
-		f[1][1].setIcon(smallDot);	f[2][1].setIcon(smallDot);	f[3][1].setIcon(smallDot);	f[4][1].setIcon(smallDot);	f[5][1].setIcon(smallDot);
+		f[1][1].setIcon(bigDot);	f[2][1].setIcon(smallDot);	f[3][1].setIcon(smallDot);	f[4][1].setIcon(smallDot);	f[5][1].setIcon(smallDot);
 		f[5][2].setIcon(smallDot);	f[5][3].setIcon(smallDot);	f[1][3].setIcon(smallDot);	f[2][3].setIcon(smallDot);	f[3][3].setIcon(smallDot);
 		f[4][3].setIcon(smallDot);	f[1][4].setIcon(smallDot);	f[1][5].setIcon(smallDot);	f[1][6].setIcon(smallDot);	f[1][7].setIcon(smallDot);
 		f[1][8].setIcon(smallDot);	f[1][9].setIcon(smallDot);	f[1][10].setIcon(smallDot);	f[1][11].setIcon(smallDot);	f[1][12].setIcon(smallDot);
@@ -55,8 +57,8 @@ public class pacman {
 	}
 	
 	public static void main(String[] args) {
+		
 		final JFrame frame = new JFrame();
-
 		final JButton loseButton = new JButton(lose);
 		final JButton winButton = new JButton(win);
 		final JButton timeout = new JButton(bomb);
@@ -146,12 +148,23 @@ public class pacman {
 				switch(key) {
 					case KeyEvent.VK_UP:
 						if((f[pacmanH-1][pacmanW].getIcon()).equals(smallDot) || (f[pacmanH-1][pacmanW].getIcon()).equals(empty)) {
-							if((f[pacmanH-1][pacmanW].getIcon()).equals(smallDot) && (f[pacmanH][pacmanW].getIcon()).equals(pacman)) numOfDot--;
+							if((f[pacmanH-1][pacmanW].getIcon()).equals(smallDot) && (f[pacmanH][pacmanW].getIcon()).equals(pacman)) {
+								numOfDot--;
+								score += 100;
+							}
 							f[pacmanH-1][pacmanW].setIcon(pacman);
 							f[pacmanH][pacmanW].setIcon(empty);
 							pacmanH--;
-						}
-						if((f[pacmanH-1][pacmanW].getIcon()).equals(enemy)) {
+						} else if((f[pacmanH-1][pacmanW].getIcon()).equals(bigDot) || (f[pacmanH-1][pacmanW].getIcon()).equals(empty)) {
+							if((f[pacmanH-1][pacmanW].getIcon()).equals(bigDot) && (f[pacmanH][pacmanW].getIcon()).equals(pacman)) {
+								numOfDot--;
+								score += 200;
+								
+							}
+							f[pacmanH-1][pacmanW].setIcon(pacman);
+							f[pacmanH][pacmanW].setIcon(empty);
+							pacmanH--;
+						} else if((f[pacmanH-1][pacmanW].getIcon()).equals(enemy)) {
 							f[enemyH][enemyW].setIcon(enemy);
 							dialog.add(loseButton);
 							dialog.setVisible(true);
@@ -159,12 +172,22 @@ public class pacman {
 						break;
 					case KeyEvent.VK_DOWN:
 						if((f[pacmanH+1][pacmanW].getIcon()).equals(smallDot) || (f[pacmanH+1][pacmanW].getIcon()).equals(empty)) {
-							if((f[pacmanH+1][pacmanW].getIcon()).equals(smallDot) && (f[pacmanH][pacmanW].getIcon()).equals(pacman)) numOfDot--;
+							if((f[pacmanH+1][pacmanW].getIcon()).equals(smallDot) && (f[pacmanH][pacmanW].getIcon()).equals(pacman)) {
+								numOfDot--;
+								score += 100;
+							}
 							f[pacmanH+1][pacmanW].setIcon(pacman);
 							f[pacmanH][pacmanW].setIcon(empty);
 							pacmanH++;
-						}
-						if((f[pacmanH+1][pacmanW].getIcon()).equals(enemy)){
+						} else if((f[pacmanH+1][pacmanW].getIcon()).equals(bigDot) || (f[pacmanH+1][pacmanW].getIcon()).equals(empty)) {
+							if((f[pacmanH+1][pacmanW].getIcon()).equals(bigDot) && (f[pacmanH][pacmanW].getIcon()).equals(pacman)) {
+								numOfDot--;
+								score += 200;
+							}
+							f[pacmanH+1][pacmanW].setIcon(pacman);
+							f[pacmanH][pacmanW].setIcon(empty);
+							pacmanH--;
+						} else if((f[pacmanH+1][pacmanW].getIcon()).equals(enemy)){
 							f[enemyH][enemyW].setIcon(enemy);
 							dialog.add(loseButton);
 							dialog.setVisible(true);
@@ -172,12 +195,22 @@ public class pacman {
 						break;
 					case KeyEvent.VK_LEFT:
 						if((f[pacmanH][pacmanW-1].getIcon()).equals(smallDot) || (f[pacmanH][pacmanW-1].getIcon()).equals(empty)) {
-							if((f[pacmanH][pacmanW-1].getIcon()).equals(smallDot) && (f[pacmanH][pacmanW].getIcon()).equals(pacman)) numOfDot--;
+							if((f[pacmanH][pacmanW-1].getIcon()).equals(smallDot) && (f[pacmanH][pacmanW].getIcon()).equals(pacman)) {
+								numOfDot--;
+								score += 100;
+							}
 							f[pacmanH][pacmanW-1].setIcon(pacman);
 							f[pacmanH][pacmanW].setIcon(empty);
 							pacmanW--;
-						}
-						if((f[pacmanH][pacmanW-1].getIcon()).equals(enemy)){
+						} else if((f[pacmanH][pacmanW-1].getIcon()).equals(bigDot) || (f[pacmanH][pacmanW-1].getIcon()).equals(empty)) {
+							if((f[pacmanH][pacmanW-1].getIcon()).equals(bigDot) && (f[pacmanH][pacmanW].getIcon()).equals(pacman)) {
+								numOfDot--;
+								score += 200;
+							}
+							f[pacmanH+1][pacmanW].setIcon(pacman);
+							f[pacmanH][pacmanW].setIcon(empty);
+							pacmanH--;
+						} else if((f[pacmanH][pacmanW-1].getIcon()).equals(enemy)){
 							f[enemyH][enemyW].setIcon(enemy);
 							dialog.add(loseButton);
 							dialog.setVisible(true);
@@ -185,18 +218,29 @@ public class pacman {
 						break;
 					case KeyEvent.VK_RIGHT:
 						if((f[pacmanH][pacmanW+1].getIcon()).equals(smallDot) || (f[pacmanH][pacmanW+1].getIcon()).equals(empty)) {
-							if((f[pacmanH][pacmanW+1].getIcon()).equals(smallDot) && (f[pacmanH][pacmanW].getIcon()).equals(pacman)) numOfDot--;
+							if((f[pacmanH][pacmanW+1].getIcon()).equals(smallDot) && (f[pacmanH][pacmanW].getIcon()).equals(pacman)) {
+								numOfDot--;
+								score += 100;
+							}
 							f[pacmanH][pacmanW+1].setIcon(pacman);
 							f[pacmanH][pacmanW].setIcon(empty);
 							pacmanW++;
-						}
-						if((f[pacmanH][pacmanW+1].getIcon()).equals(enemy)) {
+						} else if((f[pacmanH][pacmanW+1].getIcon()).equals(bigDot) || (f[pacmanH][pacmanW+1].getIcon()).equals(empty)) {
+							if((f[pacmanH][pacmanW+1].getIcon()).equals(bigDot) && (f[pacmanH][pacmanW].getIcon()).equals(pacman)) {
+								numOfDot--;
+								score += 200;
+							}
+							f[pacmanH+1][pacmanW].setIcon(pacman);
+							f[pacmanH][pacmanW].setIcon(empty);
+							pacmanH--;
+						} else if((f[pacmanH][pacmanW+1].getIcon()).equals(enemy)) {
 							f[enemyH][enemyW].setIcon(enemy);
 							dialog.add(loseButton);
 							dialog.setVisible(true);
 						}
 						break;
 				}
+				System.out.println(score);
 			}
 		}
 		KListener listener = new KListener();
