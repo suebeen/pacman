@@ -5,14 +5,24 @@ import java.util.Random;
 
 public class pacman {
 	
-	static final ImageIcon successIcon = new ImageIcon("successIcon.png");
-	static final ImageIcon smallDot = new ImageIcon("smallDot.png");
-	static final ImageIcon bigDot = new ImageIcon("bigDot.png");
-	static final ImageIcon wall = new ImageIcon("wall.png");
-	static final ImageIcon enemy = new ImageIcon("enemy.png");
-	static final ImageIcon pacman = new ImageIcon("pacman.png");
-	static final ImageIcon empty = new ImageIcon("empty.png");
+	static final ImageIcon lose = new ImageIcon("icons/lose.png");
+	static final ImageIcon win = new ImageIcon("icons/win.png");
+	static final ImageIcon bomb = new ImageIcon("icons/bomb.png");
+	static final ImageIcon smallDot = new ImageIcon("icons/smallDot.png");
+	static final ImageIcon bigDot = new ImageIcon("icons/bigDot.png");
+	static final ImageIcon wall = new ImageIcon("icons/wall.png");
+	static final ImageIcon enemy = new ImageIcon("icons/enemy.png");
+	static final ImageIcon pacman = new ImageIcon("icons/pacman.png");
+	static final ImageIcon empty = new ImageIcon("icons/empty.png");
 	static final JLabel[][] f = new JLabel[14][14];
+	
+	private static Random random;
+	private static int pacmanH, pacmanW, enemyH, enemyW, numOfDot, where, start;
+	private static int fieldMin=0, fieldMax=13;
+	private static Icon temp1, temp2, temp3, temp4, temp;
+
+	private static final int FRAME_WIDTH = 690;
+	private static final int FRAME_HEIGHT = 650;
 	
 	static void createMap() {
 
@@ -47,7 +57,9 @@ public class pacman {
 	public static void main(String[] args) {
 		final JFrame frame = new JFrame();
 
-		final JButton button = new JButton(successIcon);
+		final JButton loseButton = new JButton(lose);
+		final JButton winButton = new JButton(win);
+		final JButton timeout = new JButton(bomb);
 		final CardLayout card = new CardLayout();
 		final JDialog dialog = new JDialog();
 
@@ -57,10 +69,17 @@ public class pacman {
 		dialog.setVisible(false);
 
 		pacmanH=12;  pacmanW=7;  enemyH=7;  enemyW=7;  numOfDot=79;  start=2;  temp=empty;
-
-
-		class Blistener implements ActionListener {
+		
+		class LListener implements ActionListener {
 			public void actionPerformed(ActionEvent event) {
+				// 재도전 하시겠습니까? 추가
+				System.exit(0);
+			}
+		}
+		
+		class WListener implements ActionListener {
+			public void actionPerformed(ActionEvent event) {
+				// 재도전 하시겠습니까? 추가
 				System.exit(0);
 			}
 		}
@@ -110,7 +129,7 @@ public class pacman {
 					}
 					if(enemyH==pacmanH && enemyW==pacmanW) {
 						f[enemyH][enemyW].setIcon(enemy);
-						dialog.add(button);
+						dialog.add(loseButton);
 						dialog.setVisible(true);
 					}
 
@@ -120,7 +139,7 @@ public class pacman {
 		class KListener extends KeyAdapter{  //KeyListener
 			public void keyPressed(KeyEvent e) {
 				if(numOfDot<=0) {
-					dialog.add(button);
+					dialog.add(winButton);
 					dialog.setVisible(true);
 				}
 				int key = e.getKeyCode();
@@ -134,7 +153,7 @@ public class pacman {
 						}
 						if((f[pacmanH-1][pacmanW].getIcon()).equals(enemy)) {
 							f[enemyH][enemyW].setIcon(enemy);
-							dialog.add(button);
+							dialog.add(loseButton);
 							dialog.setVisible(true);
 						}
 						break;
@@ -147,7 +166,7 @@ public class pacman {
 						}
 						if((f[pacmanH+1][pacmanW].getIcon()).equals(enemy)){
 							f[enemyH][enemyW].setIcon(enemy);
-							dialog.add(button);
+							dialog.add(loseButton);
 							dialog.setVisible(true);
 						}
 						break;
@@ -160,7 +179,7 @@ public class pacman {
 						}
 						if((f[pacmanH][pacmanW-1].getIcon()).equals(enemy)){
 							f[enemyH][enemyW].setIcon(enemy);
-							dialog.add(button);
+							dialog.add(loseButton);
 							dialog.setVisible(true);
 						}
 						break;
@@ -173,7 +192,7 @@ public class pacman {
 						}
 						if((f[pacmanH][pacmanW+1].getIcon()).equals(enemy)) {
 							f[enemyH][enemyW].setIcon(enemy);
-							dialog.add(button);
+							dialog.add(loseButton);
 							dialog.setVisible(true);
 						}
 						break;
@@ -183,8 +202,10 @@ public class pacman {
 		KListener listener = new KListener();
 		TListener tListener = new TListener();
 
-		button.addActionListener(new Blistener());
+		loseButton.addActionListener(new LListener());
+		winButton.addActionListener(new WListener());
 
+		//level setting
 		Timer t = new Timer(500, tListener);
 		t.start();
 		
@@ -208,12 +229,4 @@ public class pacman {
 		frame.setVisible(true);
 		frame.setSize(FRAME_WIDTH, FRAME_HEIGHT);
 	}
-
-	private static Random random;
-	private static int pacmanH, pacmanW, enemyH, enemyW, numOfDot, where, start;
-	private static int fieldMin=0, fieldMax=13;
-	private static Icon temp1, temp2, temp3, temp4, temp;
-
-	private static final int FRAME_WIDTH = 690;
-	private static final int FRAME_HEIGHT = 650;
 }
