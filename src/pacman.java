@@ -5,16 +5,47 @@ import java.util.Random;
 
 public class pacman {
 	
+	static final ImageIcon successIcon = new ImageIcon("successIcon.png");
+	static final ImageIcon smallDot = new ImageIcon("smallDot.png");
+	static final ImageIcon bigDot = new ImageIcon("bigDot.png");
+	static final ImageIcon wall = new ImageIcon("wall.png");
+	static final ImageIcon enemy = new ImageIcon("enemy.png");
+	static final ImageIcon pacman = new ImageIcon("pacman.png");
+	static final ImageIcon empty = new ImageIcon("empty.png");
+	static final JLabel[][] f = new JLabel[14][14];
+	
+	static void createMap() {
+
+		for (int i=0; i<14; i++) {
+			for(int j=0; j<14; j++) {
+				f[i][j] = new JLabel();
+				f[i][j].setIcon(wall);
+			}
+		}
+		f[1][1].setIcon(smallDot);	f[2][1].setIcon(smallDot);	f[3][1].setIcon(smallDot);	f[4][1].setIcon(smallDot);	f[5][1].setIcon(smallDot);
+		f[5][2].setIcon(smallDot);	f[5][3].setIcon(smallDot);	f[1][3].setIcon(smallDot);	f[2][3].setIcon(smallDot);	f[3][3].setIcon(smallDot);
+		f[4][3].setIcon(smallDot);	f[1][4].setIcon(smallDot);	f[1][5].setIcon(smallDot);	f[1][6].setIcon(smallDot);	f[1][7].setIcon(smallDot);
+		f[1][8].setIcon(smallDot);	f[1][9].setIcon(smallDot);	f[1][10].setIcon(smallDot);	f[1][11].setIcon(smallDot);	f[1][12].setIcon(smallDot);
+		f[2][9].setIcon(smallDot);	f[2][12].setIcon(smallDot);	f[3][12].setIcon(smallDot);	f[4][12].setIcon(smallDot);	f[5][12].setIcon(smallDot);
+		f[3][4].setIcon(smallDot);	f[3][5].setIcon(smallDot);	f[3][10].setIcon(smallDot);	f[3][11].setIcon(smallDot);
+		f[4][5].setIcon(smallDot);	f[4][6].setIcon(smallDot);	f[4][7].setIcon(smallDot);	f[4][8].setIcon(smallDot);	f[4][9].setIcon(smallDot);
+		f[4][10].setIcon(smallDot);	f[2][7].setIcon(smallDot);	f[3][7].setIcon(smallDot);	f[4][10].setIcon(smallDot);	f[4][11].setIcon(smallDot);
+		f[5][11].setIcon(smallDot);	f[6][11].setIcon(smallDot);	f[7][11].setIcon(smallDot);	f[7][12].setIcon(smallDot);	f[8][12].setIcon(smallDot);
+		f[9][12].setIcon(smallDot);	f[10][12].setIcon(smallDot);f[11][12].setIcon(smallDot);	f[5][7].setIcon(empty);	f[6][2].setIcon(smallDot);
+		f[7][1].setIcon(smallDot);	f[9][11].setIcon(smallDot);	f[11][1].setIcon(smallDot);	f[11][3].setIcon(smallDot);	f[11][11].setIcon(smallDot);
+		f[7][2].setIcon(smallDot);	f[7][3].setIcon(smallDot);	f[8][1].setIcon(smallDot);	f[9][1].setIcon(smallDot);	f[9][2].setIcon(smallDot);
+		f[9][3].setIcon(smallDot);	f[9][4].setIcon(smallDot);	f[9][5].setIcon(smallDot);	f[9][6].setIcon(smallDot);	f[12][1].setIcon(smallDot);
+		f[12][2].setIcon(smallDot);	f[12][3].setIcon(smallDot);	f[12][4].setIcon(smallDot);	f[12][5].setIcon(smallDot);	f[12][9].setIcon(smallDot);
+		f[12][10].setIcon(smallDot);f[12][11].setIcon(smallDot); f[10][5].setIcon(smallDot); f[11][5].setIcon(smallDot); f[10][6].setIcon(smallDot);
+		f[10][7].setIcon(smallDot);	f[10][8].setIcon(smallDot); f[10][9].setIcon(smallDot); f[11][7].setIcon(smallDot); f[12][7].setIcon(pacman);
+		f[9][8].setIcon(smallDot); f[9][9].setIcon(smallDot); f[11][9].setIcon(smallDot); f[6][5].setIcon(empty);f[6][6].setIcon(empty);
+		f[6][7].setIcon(empty); f[6][8].setIcon(empty);f[6][9].setIcon(empty); f[7][5].setIcon(empty);f[7][6].setIcon(empty);
+		f[7][7].setIcon(enemy); f[7][8].setIcon(empty);f[7][9].setIcon(empty);
+		
+	}
+	
 	public static void main(String[] args) {
 		final JFrame frame = new JFrame();
-
-		final ImageIcon successIcon = new ImageIcon("successIcon.png");
-		final ImageIcon smallDot = new ImageIcon("smallDot.png");
-		final ImageIcon bigDot = new ImageIcon("bigDot.png");
-		final ImageIcon wall = new ImageIcon("wall.png");
-		final ImageIcon enemy = new ImageIcon("enemy.png");
-		final ImageIcon pacman = new ImageIcon("pacman.png");
-		final ImageIcon empty = new ImageIcon("empty.png");
 
 		final JButton button = new JButton(successIcon);
 		final CardLayout card = new CardLayout();
@@ -28,22 +59,13 @@ public class pacman {
 		pacmanH=12;  pacmanW=7;  enemyH=7;  enemyW=7;  numOfDot=79;  start=2;  temp=empty;
 
 
-		final JLabel[][] f = new JLabel[14][14];
-
-		for (int i=0; i<14; i++) {
-			for(int j=0; j<14; j++) {
-				f[i][j] = new JLabel();
-			}
-		}
-
 		class Blistener implements ActionListener {
 			public void actionPerformed(ActionEvent event) {
 				System.exit(0);
 			}
 		}
 
-
-		class TListener implements ActionListener {   //timerŬ���� ActionListener
+		class TListener implements ActionListener {   //enemy
 			public void actionPerformed(ActionEvent event)
 			{
 				if(start<=0) where = 1+random.nextInt(4);
@@ -93,7 +115,6 @@ public class pacman {
 					}
 
 				if(enemyH==5 && enemyW==7) { f[6][7].setIcon(wall); }
-				System.out.println(where);
 			}
 		}
 		class KListener extends KeyAdapter{  //KeyListener
@@ -157,7 +178,6 @@ public class pacman {
 						}
 						break;
 				}
-				System.out.println(numOfDot);
 			}
 		}
 		KListener listener = new KListener();
@@ -167,42 +187,23 @@ public class pacman {
 
 		Timer t = new Timer(500, tListener);
 		t.start();
+		
+		createMap();
 
 		JPanel panel = new JPanel();
 		panel.setLayout(new GridLayout(14,14));
 		frame.requestFocus();
 		frame.addKeyListener(new KListener());
 
-
 		for(int i=0; i<14; i++) {
 			for(int j=0; j<14; j++) {
-				f[i][j].setIcon(wall);
 				f[i][j].addKeyListener(listener);
 				panel.add(f[i][j]);
 			}
 		}
-		f[1][1].setIcon(smallDot);	f[2][1].setIcon(smallDot);	f[3][1].setIcon(smallDot);	f[4][1].setIcon(smallDot);	f[5][1].setIcon(smallDot);
-		f[5][2].setIcon(smallDot);	f[5][3].setIcon(smallDot);	f[1][3].setIcon(smallDot);	f[2][3].setIcon(smallDot);	f[3][3].setIcon(smallDot);
-		f[4][3].setIcon(smallDot);	f[1][4].setIcon(smallDot);	f[1][5].setIcon(smallDot);	f[1][6].setIcon(smallDot);	f[1][7].setIcon(smallDot);
-		f[1][8].setIcon(smallDot);	f[1][9].setIcon(smallDot);	f[1][10].setIcon(smallDot);	f[1][11].setIcon(smallDot);	f[1][12].setIcon(smallDot);
-		f[2][9].setIcon(smallDot);	f[2][12].setIcon(smallDot);	f[3][12].setIcon(smallDot);	f[4][12].setIcon(smallDot);	f[5][12].setIcon(smallDot);
-		f[3][4].setIcon(smallDot);	f[3][5].setIcon(smallDot);	f[3][10].setIcon(smallDot);	f[3][11].setIcon(smallDot);
-		f[4][5].setIcon(smallDot);	f[4][6].setIcon(smallDot);	f[4][7].setIcon(smallDot);	f[4][8].setIcon(smallDot);	f[4][9].setIcon(smallDot);
-		f[4][10].setIcon(smallDot);	f[2][7].setIcon(smallDot);	f[3][7].setIcon(smallDot);	f[4][10].setIcon(smallDot);	f[4][11].setIcon(smallDot);
-		f[5][11].setIcon(smallDot);	f[6][11].setIcon(smallDot);	f[7][11].setIcon(smallDot);	f[7][12].setIcon(smallDot);	f[8][12].setIcon(smallDot);
-		f[9][12].setIcon(smallDot);	f[10][12].setIcon(smallDot);f[11][12].setIcon(smallDot);	f[5][7].setIcon(empty);	f[6][2].setIcon(smallDot);
-		f[7][1].setIcon(smallDot);	f[9][11].setIcon(smallDot);	f[11][1].setIcon(smallDot);	f[11][3].setIcon(smallDot);	f[11][11].setIcon(smallDot);
-		f[7][2].setIcon(smallDot);	f[7][3].setIcon(smallDot);	f[8][1].setIcon(smallDot);	f[9][1].setIcon(smallDot);	f[9][2].setIcon(smallDot);
-		f[9][3].setIcon(smallDot);	f[9][4].setIcon(smallDot);	f[9][5].setIcon(smallDot);	f[9][6].setIcon(smallDot);	f[12][1].setIcon(smallDot);
-		f[12][2].setIcon(smallDot);	f[12][3].setIcon(smallDot);	f[12][4].setIcon(smallDot);	f[12][5].setIcon(smallDot);	f[12][9].setIcon(smallDot);
-		f[12][10].setIcon(smallDot);f[12][11].setIcon(smallDot); f[10][5].setIcon(smallDot); f[11][5].setIcon(smallDot); f[10][6].setIcon(smallDot);
-		f[10][7].setIcon(smallDot);	f[10][8].setIcon(smallDot); f[10][9].setIcon(smallDot); f[11][7].setIcon(smallDot); f[12][7].setIcon(pacman);
-		f[9][8].setIcon(smallDot); f[9][9].setIcon(smallDot); f[11][9].setIcon(smallDot); f[6][5].setIcon(empty);f[6][6].setIcon(empty);
-		f[6][7].setIcon(empty); f[6][8].setIcon(empty);f[6][9].setIcon(empty); f[7][5].setIcon(empty);f[7][6].setIcon(empty);
-		f[7][7].setIcon(enemy); f[7][8].setIcon(empty);f[7][9].setIcon(empty);
 
 		frame.add(panel);
-		frame.setTitle("팩맨");
+		frame.setTitle("pacman");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true);
 		frame.setSize(FRAME_WIDTH, FRAME_HEIGHT);
