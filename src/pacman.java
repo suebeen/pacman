@@ -3,11 +3,14 @@ import java.awt.event.*;
 import javax.swing.*;
 import java.util.Random;
 
-public class pacman {
+public class pacman{
+	
+	public static void main(String[] args) {	
+		hardMode();
+	}
 	
 	static final ImageIcon lose = new ImageIcon("icons/lose.png");
 	static final ImageIcon win = new ImageIcon("icons/win.png");
-	static final ImageIcon bomb = new ImageIcon("icons/bomb.png");
 	static final ImageIcon smallDot = new ImageIcon("icons/smallDot.png");
 	static final ImageIcon bigDot = new ImageIcon("icons/bigDot.png");
 	static final ImageIcon wall = new ImageIcon("icons/wall.png");
@@ -15,6 +18,7 @@ public class pacman {
 	static final ImageIcon pacman = new ImageIcon("icons/pacman.png");
 	static final ImageIcon empty = new ImageIcon("icons/empty.png");
 	static int score = 0, highscore = 0;
+	static boolean hardMode = false;
 	
 	static final JLabel[][] f = new JLabel[14][14];
 	
@@ -57,16 +61,32 @@ public class pacman {
 	}
 	
 	static void retry() {
-		int result = JOptionPane.showConfirmDialog(null, "재도전 하시겠습니까?\n 점수: " + score + "점\n 최고점수 : " + highscore + "점" , "retry", JOptionPane.YES_NO_OPTION); 
 	
-		if(result == JOptionPane.CLOSED_OPTION) { // 사용자가 "예", "아니오"의 선택 없이 다이얼로그 창을 닫은 경우 
+		int result = JOptionPane.showConfirmDialog(null, "replay ? \n score : " + score + "\n highscore : " + highscore + "" , "retry", JOptionPane.YES_NO_OPTION); 
+		
+		if(result == JOptionPane.CLOSED_OPTION) {
 			System.exit(0);
-		} else if(result == JOptionPane.YES_OPTION) { // 사용자가 "예"를 선택한 경우 
-			play();
-		} else { // 사용자가 "아니오"를 선택한 경우 
+		} else if(result == JOptionPane.YES_OPTION) {
+			hardMode();
+		} else {
 			System.exit(0);
 		}
 	
+	}
+	
+	static void hardMode() {
+		
+		int mode = JOptionPane.showConfirmDialog(null, "play hard mode ? \n" ,"choose mode", JOptionPane.YES_NO_OPTION); 
+		
+		if(mode == JOptionPane.CLOSED_OPTION) {
+			System.exit(0);
+		} else if(mode == JOptionPane.YES_OPTION) {
+			hardMode = true;
+			play();
+		} else {
+			hardMode = false;
+			play();
+		}
 	}
 	
 	static void play() {
@@ -75,7 +95,6 @@ public class pacman {
 		final JFrame frame = new JFrame();
 		final JButton loseButton = new JButton(lose);
 		final JButton winButton = new JButton(win);
-		final JButton timeout = new JButton(bomb);
 		final CardLayout card = new CardLayout();
 		final JDialog dialog = new JDialog();
 
@@ -88,6 +107,7 @@ public class pacman {
 		
 		class LListener implements ActionListener {
 			public void actionPerformed(ActionEvent event) {
+				if(hardMode) score *= 1.5;
 				if(highscore < score) highscore = score;
 				retry();
 				return;
@@ -96,6 +116,7 @@ public class pacman {
 		
 		class WListener implements ActionListener {
 			public void actionPerformed(ActionEvent event) {
+				if(hardMode) score *= 1.5;
 				if(highscore < score) highscore = score;
 				retry();
 				return;
@@ -267,7 +288,10 @@ public class pacman {
 		winButton.addActionListener(new WListener());
 
 		//level setting
-		Timer t = new Timer(500, tListener);
+		Timer t;
+		if(hardMode) t = new Timer(200, tListener);
+		else t = new Timer(500, tListener);
+		
 		t.start();
 		
 		createMap();
@@ -292,8 +316,4 @@ public class pacman {
 	
 	}
 	
-	public static void main(String[] args) {
-		
-		play();
-	}
 }
