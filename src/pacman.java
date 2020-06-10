@@ -14,7 +14,7 @@ public class pacman {
 	static final ImageIcon enemy = new ImageIcon("icons/enemy.png");
 	static final ImageIcon pacman = new ImageIcon("icons/pacman.png");
 	static final ImageIcon empty = new ImageIcon("icons/empty.png");
-	static int score = 0;
+	static int score = 0, highscore = 0;
 	
 	static final JLabel[][] f = new JLabel[14][14];
 	
@@ -56,8 +56,22 @@ public class pacman {
 		
 	}
 	
-	public static void main(String[] args) {
+	static void retry() {
+		int result = JOptionPane.showConfirmDialog(null, "재도전 하시겠습니까?\n 점수: " + score + "점\n 최고점수 : " + highscore + "점" , "retry", JOptionPane.YES_NO_OPTION); 
+	
+		if(result == JOptionPane.CLOSED_OPTION) { // 사용자가 "예", "아니오"의 선택 없이 다이얼로그 창을 닫은 경우 
+			System.exit(0);
+		} else if(result == JOptionPane.YES_OPTION) { // 사용자가 "예"를 선택한 경우 
+			play();
+		} else { // 사용자가 "아니오"를 선택한 경우 
+			System.exit(0);
+		}
+	
+	}
+	
+	static void play() {
 		
+		score = 0;
 		final JFrame frame = new JFrame();
 		final JButton loseButton = new JButton(lose);
 		final JButton winButton = new JButton(win);
@@ -74,18 +88,20 @@ public class pacman {
 		
 		class LListener implements ActionListener {
 			public void actionPerformed(ActionEvent event) {
-				// 재도전 하시겠습니까? 추가
-				System.exit(0);
+				if(highscore < score) highscore = score;
+				retry();
+				return;
 			}
 		}
 		
 		class WListener implements ActionListener {
 			public void actionPerformed(ActionEvent event) {
-				// 재도전 하시겠습니까? 추가
-				System.exit(0);
+				if(highscore < score) highscore = score;
+				retry();
+				return;
 			}
 		}
-
+		
 		class TListener implements ActionListener {   //enemy
 			public void actionPerformed(ActionEvent event)
 			{
@@ -243,6 +259,7 @@ public class pacman {
 				System.out.println(score);
 			}
 		}
+		
 		KListener listener = new KListener();
 		TListener tListener = new TListener();
 
@@ -272,5 +289,11 @@ public class pacman {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true);
 		frame.setSize(FRAME_WIDTH, FRAME_HEIGHT);
+	
+	}
+	
+	public static void main(String[] args) {
+		
+		play();
 	}
 }
