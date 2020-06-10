@@ -38,22 +38,22 @@ public class pacman{
 				f[i][j].setIcon(wall);
 			}
 		}
-		f[1][1].setIcon(bigDot);	f[2][1].setIcon(smallDot);	f[3][1].setIcon(smallDot);	f[4][1].setIcon(smallDot);	f[5][1].setIcon(smallDot);
-		f[5][2].setIcon(smallDot);	f[5][3].setIcon(smallDot);	f[1][3].setIcon(smallDot);	f[2][3].setIcon(smallDot);	f[3][3].setIcon(smallDot);
-		f[4][3].setIcon(smallDot);	f[1][4].setIcon(smallDot);	f[1][5].setIcon(smallDot);	f[1][6].setIcon(smallDot);	f[1][7].setIcon(smallDot);
+		f[1][1].setIcon(bigDot);	f[2][1].setIcon(smallDot);	f[3][1].setIcon(bigDot);	f[4][1].setIcon(smallDot);	f[5][1].setIcon(smallDot);
+		f[5][2].setIcon(smallDot);	f[5][3].setIcon(smallDot);	f[1][3].setIcon(bigDot);	f[2][3].setIcon(smallDot);	f[3][3].setIcon(smallDot);
+		f[4][3].setIcon(bigDot);	f[1][4].setIcon(smallDot);	f[1][5].setIcon(smallDot);	f[1][6].setIcon(smallDot);	f[1][7].setIcon(smallDot);
 		f[1][8].setIcon(smallDot);	f[1][9].setIcon(smallDot);	f[1][10].setIcon(smallDot);	f[1][11].setIcon(smallDot);	f[1][12].setIcon(smallDot);
 		f[2][9].setIcon(smallDot);	f[2][12].setIcon(smallDot);	f[3][12].setIcon(smallDot);	f[4][12].setIcon(smallDot);	f[5][12].setIcon(smallDot);
-		f[3][4].setIcon(smallDot);	f[3][5].setIcon(smallDot);	f[3][10].setIcon(smallDot);	f[3][11].setIcon(smallDot);
+		f[3][4].setIcon(smallDot);	f[3][5].setIcon(bigDot);	f[3][10].setIcon(smallDot);	f[3][11].setIcon(smallDot);
 		f[4][5].setIcon(smallDot);	f[4][6].setIcon(smallDot);	f[4][7].setIcon(smallDot);	f[4][8].setIcon(smallDot);	f[4][9].setIcon(smallDot);
-		f[4][10].setIcon(smallDot);	f[2][7].setIcon(smallDot);	f[3][7].setIcon(smallDot);	f[4][10].setIcon(smallDot);	f[4][11].setIcon(smallDot);
-		f[5][11].setIcon(smallDot);	f[6][11].setIcon(smallDot);	f[7][11].setIcon(smallDot);	f[7][12].setIcon(smallDot);	f[8][12].setIcon(smallDot);
+		f[4][10].setIcon(smallDot);	f[2][7].setIcon(smallDot);	f[3][7].setIcon(smallDot);	f[4][10].setIcon(smallDot);	f[4][11].setIcon(bigDot);
+		f[5][11].setIcon(smallDot);	f[6][11].setIcon(smallDot);	f[7][11].setIcon(bigDot);	f[7][12].setIcon(smallDot);	f[8][12].setIcon(smallDot);
 		f[9][12].setIcon(smallDot);	f[10][12].setIcon(smallDot);f[11][12].setIcon(smallDot);	f[5][7].setIcon(empty);	f[6][2].setIcon(smallDot);
-		f[7][1].setIcon(smallDot);	f[9][11].setIcon(smallDot);	f[11][1].setIcon(smallDot);	f[11][3].setIcon(smallDot);	f[11][11].setIcon(smallDot);
+		f[7][1].setIcon(bigDot);	f[9][11].setIcon(smallDot);	f[11][1].setIcon(smallDot);	f[11][3].setIcon(smallDot);	f[11][11].setIcon(smallDot);
 		f[7][2].setIcon(smallDot);	f[7][3].setIcon(smallDot);	f[8][1].setIcon(smallDot);	f[9][1].setIcon(smallDot);	f[9][2].setIcon(smallDot);
 		f[9][3].setIcon(smallDot);	f[9][4].setIcon(smallDot);	f[9][5].setIcon(smallDot);	f[9][6].setIcon(smallDot);	f[12][1].setIcon(smallDot);
-		f[12][2].setIcon(smallDot);	f[12][3].setIcon(smallDot);	f[12][4].setIcon(smallDot);	f[12][5].setIcon(smallDot);	f[12][9].setIcon(smallDot);
+		f[12][2].setIcon(bigDot);	f[12][3].setIcon(smallDot);	f[12][4].setIcon(smallDot);	f[12][5].setIcon(smallDot);	f[12][9].setIcon(bigDot);
 		f[12][10].setIcon(smallDot);f[12][11].setIcon(smallDot); f[10][5].setIcon(smallDot); f[11][5].setIcon(smallDot); f[10][6].setIcon(smallDot);
-		f[10][7].setIcon(smallDot);	f[10][8].setIcon(smallDot); f[10][9].setIcon(smallDot); f[11][7].setIcon(smallDot); f[12][7].setIcon(pacman);
+		f[10][7].setIcon(smallDot);	f[10][8].setIcon(bigDot); f[10][9].setIcon(smallDot); f[11][7].setIcon(smallDot); f[12][7].setIcon(pacman);
 		f[9][8].setIcon(smallDot); f[9][9].setIcon(smallDot); f[11][9].setIcon(smallDot); f[6][5].setIcon(empty);f[6][6].setIcon(empty);
 		f[6][7].setIcon(empty); f[6][8].setIcon(empty);f[6][9].setIcon(empty); f[7][5].setIcon(empty);f[7][6].setIcon(empty);
 		f[7][7].setIcon(enemy); f[7][8].setIcon(empty);f[7][9].setIcon(empty);
@@ -223,7 +223,7 @@ public class pacman{
 							}
 							f[pacmanH+1][pacmanW].setIcon(pacman);
 							f[pacmanH][pacmanW].setIcon(empty);
-							pacmanH--;
+							pacmanH++;
 						} else if((f[pacmanH+1][pacmanW].getIcon()).equals(enemy)){
 							f[enemyH][enemyW].setIcon(enemy);
 							dialog.add(loseButton);
@@ -244,9 +244,9 @@ public class pacman{
 								numOfDot--;
 								score += 200;
 							}
-							f[pacmanH+1][pacmanW].setIcon(pacman);
+							f[pacmanH][pacmanW-1].setIcon(pacman);
 							f[pacmanH][pacmanW].setIcon(empty);
-							pacmanH--;
+							pacmanW--;
 						} else if((f[pacmanH][pacmanW-1].getIcon()).equals(enemy)){
 							f[enemyH][enemyW].setIcon(enemy);
 							dialog.add(loseButton);
@@ -267,9 +267,9 @@ public class pacman{
 								numOfDot--;
 								score += 200;
 							}
-							f[pacmanH+1][pacmanW].setIcon(pacman);
+							f[pacmanH][pacmanW+1].setIcon(pacman);
 							f[pacmanH][pacmanW].setIcon(empty);
-							pacmanH--;
+							pacmanW++;
 						} else if((f[pacmanH][pacmanW+1].getIcon()).equals(enemy)) {
 							f[enemyH][enemyW].setIcon(enemy);
 							dialog.add(loseButton);
@@ -290,7 +290,7 @@ public class pacman{
 		//level setting
 		Timer t;
 		if(hardMode) t = new Timer(200, tListener);
-		else t = new Timer(500, tListener);
+		else t = new Timer(800, tListener);
 		
 		t.start();
 		
