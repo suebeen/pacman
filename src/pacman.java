@@ -24,7 +24,6 @@ public class pacman{
 	
 	private static Random random;
 	private static int pacmanH, pacmanW, enemyH, enemyW, numOfDot, where, start;
-	private static int fieldMin=0, fieldMax=13;
 	private static Icon temp1, temp2, temp3, temp4, temp;
 
 	private static final int FRAME_WIDTH = 690;
@@ -95,7 +94,6 @@ public class pacman{
 		final JFrame frame = new JFrame();
 		final JButton loseButton = new JButton(lose);
 		final JButton winButton = new JButton(win);
-		final CardLayout card = new CardLayout();
 		final JDialog dialog = new JDialog();
 
 		random = new Random();
